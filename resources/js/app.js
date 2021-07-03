@@ -8,6 +8,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+import router from './routes';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -27,6 +30,13 @@ Vue.component('sidebar-component', require('./components/sidebarComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyA0KRu-cD8eTrE2Xxjm--Vlm8CilXM9ABc',
+    },
+});
+
 const app = new Vue({
     el: '#app',
+    router
 });

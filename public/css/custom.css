@@ -49,6 +49,7 @@ body {
 }
 .bus_content {
 	text-decoration: none !important;
+    cursor: pointer;
 }
 .bus_content table {
 	padding: 5px 10px;

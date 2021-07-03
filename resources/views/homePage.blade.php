@@ -9,7 +9,9 @@
     </head>
     <body>
         <!-- Below code will call the vue script -->
-        <div id="app"><sidebar-component></sidebar-component></div>
+        <div id="app">
+            <router-view/>
+        </div>
         <link rel="stylesheet" href="{{ asset('/css/custom.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="{{asset('js/app.js')}}"></script>
