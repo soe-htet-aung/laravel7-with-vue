@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Bus;
+use App\Models\Bus;
 
 class BusSeeder extends Seeder
 {
