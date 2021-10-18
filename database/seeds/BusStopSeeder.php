@@ -25,6 +25,8 @@ class BusStopSeeder extends Seeder
                     'bus_id' => $data [2],
                     'stop_latitude' => $data [3],
                     'stop_longitude' => $data [4],
+                    'next_stop_latitude' => $data [5],
+                    'next_stop_longitude' => $data [6],
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
                 ];

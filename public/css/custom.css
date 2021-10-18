@@ -1,0 +1,81 @@
+/*bootstrap css for sidebar*/
+body {
+    overflow-x: hidden;
+    }
+    #sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+    }
+    #sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ddd;
+    }
+    #sidebar-wrapper .list-group {
+    width: 20rem;
+    }
+    #page-content-wrapper {
+    min-width: 100vw;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+    }
+    @media (min-width: 768px) {
+	    #sidebar-wrapper {
+	        margin-left: 0;
+	    }
+	    #page-content-wrapper {
+	        min-width: 0;
+	        width: 100%;
+	    }
+	    #wrapper.toggled #sidebar-wrapper {
+	        margin-left: -15rem;
+	    }
+    }
+    #wrapper{background-color: lightblue;
+}
+.tabbar_wrapper {
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid #ddd;
+}
+.tabbar_wrapper table td {
+    width: 103px;
+    text-align: center;
+}
+.bus_content {
+	text-decoration: none !important;
+    cursor: pointer;
+}
+.bus_content table {
+	padding: 5px 10px;
+	width: 320px;
+	height: 36px;
+	color: black;
+	border-bottom: 1px solid #ddd;
+}
+.arrow {
+	position: relative;
+    right: 10px;
+}
+#sidebar-wrapper .bus_content .busline_color_box {
+	position: absolute;
+	/*top: 0;*/
+    left: 0;
+    width: 8px;
+    height: 36px;
+	background-color: red;
+}
+.bus-icon {
+	position: relative;
+    left: 20px;
+    width: 15px;
+}
+.bus-no {
+	width: 100%;
+	padding: 5px 25px;
+}
