@@ -6,9 +6,10 @@ import busStopComponent from './components/BusStopComponent';
 Vue.use(VueRouter);
 
 export default new VueRouter({
+    base: 'public',
     routes: [
         { path: '/', component: busComponent },
-        { path: '/busline/:busId', component: busStopComponent },
+        { path: '/:busId', component: busStopComponent },
     ],
     mode: 'history'
 })

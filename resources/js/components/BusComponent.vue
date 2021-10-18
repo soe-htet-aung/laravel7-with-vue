@@ -12,7 +12,7 @@
 				</table>
 			</div>
 			<div class="list-group list-group-flush">
-				<router-link to="busline/1" class="bus_content">
+				<router-link to="1" class="bus_content">
 					<table>
 						<td class="busline_color_box"></td>
 						<td class="bus-icon"><i class="fa fa-bus"></i></td>
@@ -20,7 +20,7 @@
 						<td class="arrow">></td>
 					</table>
 				</router-link>
-				<router-link to="busline/2" class="bus_content">
+				<router-link to="2" class="bus_content">
 					<table>
 						<td class="busline_color_box"></td>
 						<td class="bus-icon"><i class="fa fa-bus"></i></td>
@@ -28,27 +28,11 @@
 						<td class="arrow">></td>
 					</table>
 				</router-link>
-				<router-link to="busline/3" class="bus_content">
+				<router-link to="3" class="bus_content">
 					<table>
 						<td class="busline_color_box"></td>
 						<td class="bus-icon"><i class="fa fa-bus"></i></td>
 						<td class="bus-no">၃</td>
-						<td class="arrow">></td>
-					</table>
-				</router-link>
-				<router-link to="busline/4" class="bus_content">
-					<table>
-						<td class="busline_color_box"></td>
-						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၄</td>
-						<td class="arrow">></td>
-					</table>
-				</router-link>
-				<router-link to="busline/5" class="bus_content">
-					<table>
-						<td class="busline_color_box"></td>
-						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၅</td>
 						<td class="arrow">></td>
 					</table>
 				</router-link>
@@ -96,9 +80,36 @@
 			return {
 				center: home,
 				markers: [],
+				buses: [],
 			};
 		},
 		methods: {
+			getBus() {
+				axios.get('/api/getBus/')
+				.then(
+					response => {
+						response.data.forEach((element, index) => {
+							this.buses.push(
+								{
+									busId: element.bus_id,
+									busName: element.bus_name
+								}
+							);
+						});
+					}
+				)
+				.catch(
+					error => {
+						console.log(error);
+					}
+				);
+			}
 		},
+		created() {
+			this.getBus();
+		},
+		mounted() {
+			// 
+		}
 	};
 </script>

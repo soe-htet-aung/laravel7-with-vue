@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('getBus', 'Api\BusController@getBus')->name('getBus');  // get bus information
+
+Route::get('getBusStop/{busId}', 'Api\BusController@getBusStops')->name('getBusStops');  // get bus stop information
