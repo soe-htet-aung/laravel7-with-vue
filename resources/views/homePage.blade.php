@@ -10,7 +10,7 @@
     <body>
         <!-- Below code will call the vue script -->
         <div id="app">
-            <router-view/>
+            <router-view :key="$route.path"/>
         </div>
         <link rel="stylesheet" href="{{ asset('/css/custom.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

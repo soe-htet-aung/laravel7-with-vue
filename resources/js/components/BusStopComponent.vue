@@ -1,41 +1,33 @@
 <template>
 	<div class="d-flex" id="wrapper">
 		<div class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading">YgnBuses.com</div>
+			<router-link to="/">
+				<div class="sidebar-heading">YgnBuses.com</div>
+			</router-link>
 			<div class="tabbar_wrapper">
 				<table>
 				<td class="button-bar home_search_select">
-					<a href="/"><i class="fa fa-bus"></i></a>
+					<router-link to="/">
+						<i class="fa fa-bus">
+							{{this.busName}}
+						</i>
+					</router-link>
 				</td>
 				<td><i class="fa fa-flag"></i></td>
 				<td><i class="fa fa-ellipsis-h"></i></td>
 				</table>
 			</div>
 			<div class="list-group list-group-flush">
-				<router-link to="1" class="bus_content">
+				<p :key="index"
+					v-for="(busStop, index) in busStopInfo" 
+					@click="openInfoWindowTemplate(busStop.position, busStop.title)"  class="bus_content mt-0 mb-0">
 					<table>
 						<td class="busline_color_box"></td>
 						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၁</td>
+						<td class="bus-no">{{busStop.busStopName}}</td>
 						<td class="arrow">></td>
 					</table>
-				</router-link>
-				<router-link to="2" class="bus_content">
-					<table>
-						<td class="busline_color_box"></td>
-						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၂</td>
-						<td class="arrow">></td>
-					</table>
-				</router-link>
-				<router-link to="3" class="bus_content">
-					<table>
-						<td class="busline_color_box"></td>
-						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၃</td>
-						<td class="arrow">></td>
-					</table>
-				</router-link>
+				</p>
 			</div>
 		</div>
 		<div id="page-content-wrapper">
@@ -44,10 +36,10 @@
 			</nav>
 			<div>
 				<GmapMap
-				:center="center"
-				:zoom="15"
+				:center="this.center"
+				:zoom="14.5"
 				map-type-id="terrain"
-				style="width: 1800px; height: 850px"
+				style="width: 1800px; height: 950px"
 				>
 					<GmapMarker
 						:key="index"
@@ -68,12 +60,11 @@
 						@closeclick="infoWindow.open=false">
 						<div v-html="infoWindow.template"></div>
 					</gmap-info-window>
-
 					<gmap-polygon 
 						:key="'path_' + pathIndex"
 						v-for="(ybsPath, pathIndex) in ybsPaths"
 						:path="ybsPath">
-					</gmap-polygon>>
+					</gmap-polygon>
 				</GmapMap>
 			</div>
 		</div>
@@ -88,13 +79,13 @@
 	import "jquery/dist/jquery.min.js";
 	import "popper.js/dist/umd/popper.min.js";
 
-	const home = { lat: 16.876745691242057, lng: 96.19321341221833 };
-
 	export default {
-      	name: "busComponent",
+      	name: "busStopComponent",
 		data() {
 			return {
-				center: home,
+				center: {lat: 0, lng: 0},
+				busStopInfo: [],
+				busName: '',
 				ybsPaths: [],
 				markers: [],
 				infoWindow: {
@@ -117,7 +108,14 @@
 						response.data.forEach((element, index) => {
 							if (index == 0) {
 								this.center = { 'lat': parseFloat(element.stop_latitude), 'lng': parseFloat(element.stop_longitude) };
+								this.busName = element.bus_name;
 							}
+							this.busStopInfo.push({
+								busStopId: element.stop_id.toString(),
+								busStopName: element.stop_name,
+								position: { lat: parseFloat(element.stop_latitude), lng: parseFloat(element.stop_longitude) },
+								title: element.stop_name,
+							});
 							this.markers.push(
 								{
 									position: { 'lat': parseFloat(element.stop_latitude), 'lng': parseFloat(element.stop_longitude) },
@@ -128,7 +126,6 @@
 								[{'lat': parseFloat(element.stop_latitude), 'lng': parseFloat(element.stop_longitude)}, 
 								{'lat': parseFloat(element.next_stop_latitude), 'lng': parseFloat(element.next_stop_longitude)}]
 							);
-
 						});
 					}
 				)

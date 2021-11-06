@@ -17,6 +17,7 @@ class CreateBusStopTable extends Migration
             $table->increments('stop_id');
             $table->string('stop_name')->nullable();
             $table->integer('bus_id');
+            $table->string('bus_name');
             $table->foreign('bus_id')->references('bus_id')->on('bus')->onDelete('cascade');
             $table->string('stop_latitude')->nullable();
             $table->string('stop_longitude')->nullable();

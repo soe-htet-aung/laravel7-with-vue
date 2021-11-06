@@ -5,34 +5,23 @@
 			<div class="tabbar_wrapper">
 				<table>
 				<td class="button-bar home_search_select">
-					<a href="/"><i class="fa fa-bus"></i></a>
+					<router-link to="/">
+						<i class="fa fa-bus"></i>
+					</router-link>
 				</td>
 				<td><i class="fa fa-flag"></i></td>
 				<td><i class="fa fa-ellipsis-h"></i></td>
 				</table>
 			</div>
 			<div class="list-group list-group-flush">
-				<router-link to="1" class="bus_content">
+				<router-link 
+					:key="index"
+					v-for="(ybs, index) in ybsInfo" 
+					:to="ybs.busId" class="bus_content">
 					<table>
 						<td class="busline_color_box"></td>
 						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၁</td>
-						<td class="arrow">></td>
-					</table>
-				</router-link>
-				<router-link to="2" class="bus_content">
-					<table>
-						<td class="busline_color_box"></td>
-						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၂</td>
-						<td class="arrow">></td>
-					</table>
-				</router-link>
-				<router-link to="3" class="bus_content">
-					<table>
-						<td class="busline_color_box"></td>
-						<td class="bus-icon"><i class="fa fa-bus"></i></td>
-						<td class="bus-no">၃</td>
+						<td class="bus-no">{{ybs.busName}}</td>
 						<td class="arrow">></td>
 					</table>
 				</router-link>
@@ -49,15 +38,6 @@
 				map-type-id="terrain"
 				style="width: 1800px; height: 850px"
 				>
-					<GmapMarker
-						:key="index"
-						v-for="(m, index) in markers"
-						:position="m.position"
-						:title="m.title"
-						:clickable="true"
-						:draggable="true"
-						@click="center=m.position"
-					/>
 				</GmapMap>
 			</div>
 		</div>
@@ -79,37 +59,33 @@
 		data() {
 			return {
 				center: home,
-				markers: [],
-				buses: [],
+				ybsInfo: [],
 			};
 		},
 		methods: {
 			getBus() {
-				axios.get('/api/getBus/')
+				axios.get('/api/getBus')
 				.then(
 					response => {
-						response.data.forEach((element, index) => {
-							this.buses.push(
-								{
-									busId: element.bus_id,
-									busName: element.bus_name
-								}
-							);
+						response.data.forEach((bus, index) => {
+							this.ybsInfo.push({
+								busId: bus.bus_id.toString(),
+								busName: bus.bus_name
+							});
 						});
-					}
+					},
 				)
 				.catch(
 					error => {
 						console.log(error);
 					}
 				);
-			}
+			},
 		},
 		created() {
 			this.getBus();
 		},
 		mounted() {
-			// 
 		}
 	};
 </script>
